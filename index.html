@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff6ed">
+<meta name="description" content="월령과 재료를 고려한 이유식 큐브 배합·영양·재고 관리">
+<link rel="manifest" href="./manifest.json">
+<title>큐브 이유식 연구소</title>
+<style>
+:root{--cream:#fff8f0;--paper:#fffdf9;--peach:#f4c8ae;--coral:#d9795d;--ink:#433b35;--muted:#82766d;--green:#66866d;--line:#eee2d6;--soft:#f8eee4;--yellow:#f4df9b}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;line-height:1.45}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:13px;padding:11px 14px;background:var(--coral);color:white;font-weight:700}button.secondary{background:var(--soft);color:var(--ink)}button.ghost{background:transparent;color:var(--coral);padding:6px}button.small{padding:7px 10px;font-size:13px}input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:12px;background:white;color:var(--ink)}input[type=checkbox]{width:auto;accent-color:var(--coral)}label{font-size:13px;color:var(--muted);display:block;margin-bottom:5px}.app{max-width:760px;margin:auto;min-height:100vh;padding-bottom:32px}.hero{padding:22px 18px 16px;background:linear-gradient(135deg,#fff0e3,#fff9f1 70%);border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border-radius:18px;background:#f7d6bf;display:grid;place-items:center;font-size:27px}.brand h1{font-size:21px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}.hero .sub{margin:16px 0 0;font-size:14px;color:#6e5b4d}.tabs{display:flex;gap:7px;padding:12px 14px;overflow-x:auto;background:var(--paper);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line)}.tab{white-space:nowrap;background:transparent;color:var(--muted);padding:9px 12px}.tab.active{background:var(--coral);color:#fff}.content{padding:16px;display:grid;gap:14px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 3px 12px #795b3b08}.panel h2{font-size:17px;margin:0 0 12px}.panel h3{font-size:14px;margin:14px 0 8px}.muted{color:var(--muted);font-size:12px}.row{display:flex;gap:10px;align-items:center}.row>*{flex:1;min-width:0}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{margin-bottom:10px}.section-title{display:flex;justify-content:space-between;align-items:center;margin:3px 0 8px;font-weight:800}.ingredient-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ingredient{display:flex;gap:8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:12px;background:white;font-size:13px}.ingredient small{display:block;color:var(--muted);font-size:10px}.ingredient input{flex:0 0 auto}.result{background:#fff1e5;border-radius:16px;padding:14px}.result-line{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:14px}.result-line.total{border-top:1px dashed #d9bca8;margin-top:6px;padding-top:10px;font-weight:800;font-size:16px}.pill{display:inline-block;border-radius:20px;padding:4px 8px;background:#f7e8d8;font-size:11px;color:#725541}.warn{background:#fff4d6;border:1px solid #f0dfaa;border-radius:12px;padding:10px;font-size:12px;color:#725c28}.ok{color:var(--green)}.item{border:1px solid var(--line);border-radius:13px;padding:11px;margin-top:8px;background:#fff}.item-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.item-title{font-weight:750}.item p{font-size:12px;color:var(--muted);margin:5px 0}.nutrients{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.nutrient{background:#f9f0e8;padding:10px;border-radius:12px}.nutrient b{display:block;font-size:16px}.nutrient span{font-size:11px;color:var(--muted)}.footer{padding:4px 18px 20px;text-align:center;color:var(--muted);font-size:11px}.hide{display:none!important}.empty{text-align:center;color:var(--muted);padding:18px 5px;font-size:13px}
+@media(min-width:620px){.content{grid-template-columns:1fr 1fr}.content .wide{grid-column:1/-1}.hero{padding-left:24px}.tabs{padding-left:24px}.content{padding:22px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="hero"><div class="brand"><div class="logo">🥣</div><div><h1>큐브 이유식 연구소</h1><p>우리 아기 한 끼를 차근차근, 균형 있게</p></div></div><p class="sub">집에 있는 재료로 배합하고, 영양·레시피·냉동 큐브를 한곳에서 관리해요.</p></header>
+<nav class="tabs" id="tabs">
+<button class="tab active" data-tab="mix">배합하기</button><button class="tab" data-tab="recipes">저장 레시피</button><button class="tab" data-tab="stock">큐브 재고</button><button class="tab" data-tab="allergy">알레르기 기록</button><button class="tab" data-tab="shopping">장보기</button>
+</nav>
+<main id="view" class="content"></main>
+<footer class="footer">영양 정보는 참고용 추정치입니다. 의료·영양 전문가의 개별 평가를 대체하지 않습니다.<br>저장 데이터는 현재 기기의 브라우저에 보관됩니다.</footer>
+</div>
+<script>
+const DB = [
+{"id":"rice","name":"쌀밥/쌀죽 재료","cat":"곡류","kcal":130,"protein":2.4,"iron":0.2,"carb":28.2,"allergen":"","note":"수분 함량에 따라 값이 크게 달라짐"},
+{"id":"brownrice","name":"현미(충분히 익힘)","cat":"곡류","kcal":123,"protein":2.7,"iron":0.5,"carb":25.6,"allergen":"","note":"질감과 소화 상태를 확인"},
+{"id":"glutinousrice","name":"찹쌀(충분히 익힘)","cat":"곡류","kcal":97,"protein":2.0,"iron":0.2,"carb":21.1,"allergen":"","note":"조리된 찹쌀 예시"},
+{"id":"oat","name":"오트밀(조리)","cat":"곡류","kcal":71,"protein":2.5,"iron":1.0,"carb":12.0,"allergen":"글루텐 교차오염 확인","note":"조리된 오트밀 100g 기준 예시"},
+{"id":"barley","name":"보리(충분히 익힘)","cat":"곡류","kcal":123,"protein":2.3,"iron":1.3,"carb":28.2,"allergen":"글루텐","note":"보리는 글루텐 함유"},
+{"id":"millet","name":"조(충분히 익힘)","cat":"곡류","kcal":119,"protein":3.5,"iron":1.0,"carb":23.7,"allergen":"","note":""},
+{"id":"quinoa","name":"퀴노아(충분히 익힘)","cat":"곡류","kcal":120,"protein":4.4,"iron":1.5,"carb":21.3,"allergen":"","note":""},
+{"id":"wheat","name":"밀가루/밀죽(완전히 익힘)","cat":"곡류","kcal":100,"protein":3.5,"iron":1.0,"carb":20.0,"allergen":"밀","note":"밀 알레르기 유발 식품"},
+{"id":"potato","name":"감자(익힘)","cat":"곡류","kcal":87,"protein":1.9,"iron":0.3,"carb":20.1,"allergen":"","note":""},
+{"id":"sweetpotato","name":"고구마(익힘)","cat":"곡류","kcal":90,"protein":2.0,"iron":0.6,"carb":20.7,"allergen":"","note":""},
+{"id":"pumpkin","name":"단호박(익힘)","cat":"채소","kcal":35,"protein":1.1,"iron":0.5,"carb":8.0,"allergen":"","note":"품종·수분에 따라 차이"},
+{"id":"zucchini","name":"애호박(익힘)","cat":"채소","kcal":15,"protein":1.1,"iron":0.4,"carb":2.7,"allergen":"","note":""},
+{"id":"cabbage","name":"배추(익힘)","cat":"채소","kcal":16,"protein":1.2,"iron":0.4,"carb":3.2,"allergen":"","note":""},
+{"id":"vitamin","name":"비타민채(익힘)","cat":"채소","kcal":20,"protein":2.0,"iron":1.0,"carb":3.0,"allergen":"","note":"유사 채소의 참고 추정치; 정확한 성분 확인 필요"},
+{"id":"broccoli","name":"브로콜리(익힘)","cat":"채소","kcal":35,"protein":2.4,"iron":0.7,"carb":7.2,"allergen":"","note":""},
+{"id":"cauliflower","name":"콜리플라워(익힘)","cat":"채소","kcal":23,"protein":1.8,"iron":0.4,"carb":4.1,"allergen":"","note":""},
+{"id":"spinach","name":"시금치(익힘)","cat":"채소","kcal":23,"protein":3.0,"iron":2.7,"carb":3.8,"allergen":"","note":"질산염·조리·보관 지침 준수"},
+{"id":"bokchoy","name":"청경채(익힘)","cat":"채소","kcal":13,"protein":1.5,"iron":0.7,"carb":2.2,"allergen":"","note":""},
+{"id":"kale","name":"케일(익힘)","cat":"채소","kcal":28,"protein":1.9,"iron":1.5,"carb":5.6,"allergen":"","note":""},
+{"id":"carrot","name":"당근(익힘)","cat":"채소","kcal":35,"protein":0.8,"iron":0.3,"carb":8.2,"allergen":"","note":""},
+{"id":"onion","name":"양파(익힘)","cat":"채소","kcal":40,"protein":1.1,"iron":0.2,"carb":9.3,"allergen":"","note":""},
+{"id":"leek","name":"대파 흰 부분(익힘)","cat":"채소","kcal":31,"protein":1.5,"iron":0.5,"carb":7.3,"allergen":"","note":"소량부터"},
+{"id":"mushroom","name":"양송이버섯(익힘)","cat":"채소","kcal":28,"protein":2.2,"iron":0.5,"carb":5.3,"allergen":"","note":"잘 익혀 제공"},
+{"id":"shiitake","name":"표고버섯(익힘)","cat":"채소","kcal":34,"protein":2.2,"iron":0.4,"carb":6.8,"allergen":"","note":"잘 익혀 제공"},
+{"id":"eggplant","name":"가지(익힘)","cat":"채소","kcal":25,"protein":1.0,"iron":0.2,"carb":5.9,"allergen":"","note":""},
+{"id":"cucumber","name":"오이(익힘)","cat":"채소","kcal":15,"protein":0.7,"iron":0.3,"carb":3.6,"allergen":"","note":"생으로 제공 시 질식 위험에 맞는 형태 필요"},
+{"id":"tomato","name":"토마토(익힘)","cat":"채소","kcal":18,"protein":0.9,"iron":0.3,"carb":3.9,"allergen":"","note":""},
+{"id":"redpepper","name":"파프리카(익힘)","cat":"채소","kcal":31,"protein":1.0,"iron":0.4,"carb":6.0,"allergen":"","note":"껍질·질감 확인"},
+{"id":"asparagus","name":"아스파라거스(익힘)","cat":"채소","kcal":22,"protein":2.4,"iron":2.1,"carb":4.1,"allergen":"","note":""},
+{"id":"beet","name":"비트(익힘)","cat":"채소","kcal":44,"protein":1.7,"iron":0.8,"carb":10.0,"allergen":"","note":""},
+{"id":"greenpea","name":"완두콩(익힘)","cat":"채소","kcal":84,"protein":5.4,"iron":1.5,"carb":15.6,"allergen":"","note":"통알은 질식 위험; 으깨거나 안전한 형태로"},
+{"id":"greenbean","name":"그린빈(익힘)","cat":"채소","kcal":35,"protein":1.9,"iron":1.0,"carb":7.9,"allergen":"","note":""},
+{"id":"lotusroot","name":"연근(충분히 익힘)","cat":"채소","kcal":74,"protein":2.6,"iron":1.0,"carb":17.2,"allergen":"","note":"질긴 섬유질이 남지 않도록"},
+{"id":"beef","name":"소고기(살코기, 익힘)","cat":"육류·단백질","kcal":200,"protein":27,"iron":2.6,"carb":0,"allergen":"","note":"부위·조리법에 따라 차이"},
+{"id":"lamb","name":"양고기(살코기, 익힘)","cat":"육류·단백질","kcal":206,"protein":25,"iron":1.8,"carb":0,"allergen":"","note":"부위·조리법에 따라 차이"},
+{"id":"chicken","name":"닭고기(살코기, 익힘)","cat":"육류·단백질","kcal":165,"protein":31,"iron":1.0,"carb":0,"allergen":"","note":"부위·조리법에 따라 차이"},
+{"id":"pork","name":"돼지고기(살코기, 익힘)","cat":"육류·단백질","kcal":196,"protein":29,"iron":1.0,"carb":0,"allergen":"","note":"완전히 익혀 제공"},
+{"id":"turkey","name":"칠면조고기(익힘)","cat":"육류·단백질","kcal":189,"protein":29,"iron":1.4,"carb":0,"allergen":"","note":""},
+{"id":"duck","name":"오리고기(살코기, 익힘)","cat":"육류·단백질","kcal":201,"protein":27,"iron":2.7,"carb":0,"allergen":"","note":"기름을 제거하고 충분히 익힘"},
+{"id":"salmon","name":"연어(익힘)","cat":"생선·달걀·콩","kcal":206,"protein":22,"iron":0.5,"carb":0,"allergen":"생선","note":"생선 종류별 중금속·알레르기 고려"},
+{"id":"cod","name":"대구(익힘)","cat":"생선·달걀·콩","kcal":105,"protein":23,"iron":0.4,"carb":0,"allergen":"생선","note":"가시를 꼼꼼히 제거"},
+{"id":"pollock","name":"명태(익힘)","cat":"생선·달걀·콩","kcal":111,"protein":24,"iron":0.6,"carb":0,"allergen":"생선","note":"가시를 꼼꼼히 제거"},
+{"id":"mackerel","name":"고등어(익힘)","cat":"생선·달걀·콩","kcal":205,"protein":19,"iron":1.6,"carb":0,"allergen":"생선","note":"수은이 낮은 종류 선택, 가시 제거"},
+{"id":"anchovy","name":"멸치(염분 제거 후)","cat":"생선·달걀·콩","kcal":130,"protein":28,"iron":2.0,"carb":0,"allergen":"생선","note":"염분을 낮추고 가시·뼈 상태 확인"},
+{"id":"egg","name":"달걀(완숙)","cat":"생선·달걀·콩","kcal":155,"protein":13,"iron":1.8,"carb":1.1,"allergen":"달걀","note":"알레르기 유발 식품; 안전하게 완전히 익혀 제공"},
+{"id":"tofu","name":"두부","cat":"생선·달걀·콩","kcal":76,"protein":8,"iron":1.6,"carb":1.9,"allergen":"대두","note":"제품별 영양값 차이"},
+{"id":"lentil","name":"렌틸콩(충분히 익힘)","cat":"생선·달걀·콩","kcal":116,"protein":9,"iron":3.3,"carb":20.1,"allergen":"","note":"으깨거나 부드럽게 제공"},
+{"id":"chickpea","name":"병아리콩(충분히 익힘)","cat":"생선·달걀·콩","kcal":164,"protein":8.9,"iron":2.9,"carb":27.4,"allergen":"","note":"껍질·질감 확인"},
+{"id":"bean","name":"강낭콩(충분히 익힘)","cat":"생선·달걀·콩","kcal":127,"protein":8.7,"iron":2.2,"carb":22.8,"allergen":"","note":"반드시 충분히 익힘"},
+{"id":"peanut","name":"땅콩버터(무가당, 묽게)","cat":"생선·달걀·콩","kcal":588,"protein":25,"iron":1.9,"carb":20.0,"allergen":"땅콩","note":"통땅콩 금지; 묽게 풀어 소량 도입"},
+{"id":"sesame","name":"참깨 페이스트(묽게)","cat":"생선·달걀·콩","kcal":595,"protein":17,"iron":14.6,"carb":21.2,"allergen":"참깨","note":"알레르기 유발 식품; 묽게 제공"},
+{"id":"almond","name":"아몬드버터(무가당, 묽게)","cat":"생선·달걀·콩","kcal":614,"protein":21,"iron":3.7,"carb":19.0,"allergen":"견과류","note":"통견과 금지; 묽게 풀어 제공"},
+{"id":"yogurt","name":"플레인 전지 요거트(무가당)","cat":"유제품","kcal":61,"protein":3.5,"iron":0.1,"carb":4.7,"allergen":"우유","note":"무가당 제품 선택; 우유 알레르기 확인"},
+{"id":"cheese","name":"아기용 치즈/저염 치즈","cat":"유제품","kcal":280,"protein":18,"iron":0.5,"carb":3.0,"allergen":"우유","note":"나트륨 함량 확인"},
+{"id":"milk","name":"우유(재료로 소량 사용)","cat":"유제품","kcal":61,"protein":3.2,"iron":0.03,"carb":4.8,"allergen":"우유","note":"돌 전 주 음료로 제공하지 말고 재료 사용은 의료 지침 확인"},
+{"id":"pear","name":"배(익힘/퓨레)","cat":"과일","kcal":57,"protein":0.4,"iron":0.2,"carb":15.2,"allergen":"","note":""},
+{"id":"apple","name":"사과(익힘/퓨레)","cat":"과일","kcal":52,"protein":0.3,"iron":0.1,"carb":13.8,"allergen":"","note":""},
+{"id":"banana","name":"바나나(으깸)","cat":"과일","kcal":89,"protein":1.1,"iron":0.3,"carb":22.8,"allergen":"","note":""},
+{"id":"avocado","name":"아보카도(으깸)","cat":"과일","kcal":160,"protein":2.0,"iron":0.6,"carb":8.5,"allergen":"","note":"에너지와 지방 공급원"},
+{"id":"blueberry","name":"블루베리(으깸/익힘)","cat":"과일","kcal":57,"protein":0.7,"iron":0.3,"carb":14.5,"allergen":"","note":"통알 제공은 질식 위험"},
+{"id":"strawberry","name":"딸기(으깸/잘게)","cat":"과일","kcal":32,"protein":0.7,"iron":0.4,"carb":7.7,"allergen":"","note":"알레르기·피부 자극 반응 관찰"},
+{"id":"peach","name":"복숭아(익힘/으깸)","cat":"과일","kcal":39,"protein":0.9,"iron":0.3,"carb":9.5,"allergen":"","note":""},
+{"id":"plum","name":"자두(익힘/으깸)","cat":"과일","kcal":46,"protein":0.7,"iron":0.3,"carb":11.4,"allergen":"","note":""},
+{"id":"mango","name":"망고(으깸)","cat":"과일","kcal":60,"protein":0.8,"iron":0.2,"carb":15.0,"allergen":"","note":""},
+{"id":"kiwi","name":"키위(으깸)","cat":"과일","kcal":61,"protein":1.1,"iron":0.3,"carb":14.7,"allergen":"","note":"입 주변 자극이 생길 수 있음"},
+{"id":"melon","name":"멜론(으깸)","cat":"과일","kcal":34,"protein":0.8,"iron":0.2,"carb":8.2,"allergen":"","note":""},
+{"id":"orange","name":"귤/오렌지(막 제거)","cat":"과일","kcal":47,"protein":0.9,"iron":0.1,"carb":11.8,"allergen":"","note":"막·씨 제거, 질감 주의"},
+{"id":"prune","name":"푸룬(불린 뒤 으깸)","cat":"과일","kcal":240,"protein":2.2,"iron":0.9,"carb":63.9,"allergen":"","note":"당 농축도가 높아 소량 사용"},
+{"id":"oliveoil","name":"올리브유","cat":"유지·씨앗","kcal":884,"protein":0,"iron":0,"carb":0,"allergen":"","note":"소량 사용; 100g 기준 영양값"},
+{"id":"canolaoil","name":"카놀라유","cat":"유지·씨앗","kcal":884,"protein":0,"iron":0,"carb":0,"allergen":"","note":"소량 사용; 100g 기준 영양값"},
+{"id":"chia","name":"치아씨드(불려서)","cat":"유지·씨앗","kcal":486,"protein":16.5,"iron":7.7,"carb":42.1,"allergen":"","note":"마른 씨앗 그대로 주지 말고 충분히 불림"},
+{"id":"flax","name":"아마씨 가루(충분히 섞어 익힘)","cat":"유지·씨앗","kcal":534,"protein":18.3,"iron":5.7,"carb":28.9,"allergen":"","note":"소량 사용, 충분히 수분과 섞기"}
+];
+const GROUPS=["곡류","채소","육류·단백질","생선·달걀·콩","유제품","과일","유지·씨앗"];
+const AGE_NOTES={"6":"초기 이유식 단계: 질감과 섭취 경험을 우선하고, 개별 발달과 의료진 안내를 따르세요.","7":"중기 전환 시기: 다양한 식품군을 소개하되 질감과 섭취 능력을 관찰하세요.","8":"다양한 식품군과 철분 공급원을 포함하도록 고려하세요.","9":"철분 공급원과 식품 다양성을 고려하고, 아기 발달에 맞는 질감을 제공하세요.","10":"식품군 다양성, 철분 공급원, 안전한 질감을 계속 고려하세요.","11":"가족 식단과 유사한 다양한 재료를 안전한 크기·질감으로 준비하세요.","12":"개별 성장과 식사 패턴에 따라 식단을 조정하세요."};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const get=(k,d)=>{try{return JSON.parse(localStorage.getItem("cubeLab_"+k))??d}catch{return d}};
+const put=(k,v)=>localStorage.setItem("cubeLab_"+k,JSON.stringify(v));
+let selected=new Set(["rice","pumpkin","beef"]), currentTab="mix";
+let state={age:"9",target:120,recipes:get("recipes",[]),stock:get("stock",{}),allergies:get("allergies",[]),shopping:get("shopping",[])};
+function food(id){return DB.find(x=>x.id===id)}
+function chooseRecommended(ids, age){
+ // 체크한 재료는 "보유 후보"로 보고, 한 끼에는 균형을 위해 4~5가지만 고릅니다.
+ // 기본 구성: 곡류 1 + 철분/단백질 공급원 1 + 채소 2~3.
+ const unique=[...new Set(ids)].filter(id=>food(id));
+ const pick=(arr)=>arr.find(id=>unique.includes(id));
+ const chosen=[];
+ const grainPriority=["rice","oat","millet","quinoa","brownrice","glutinousrice","sweetpotato","potato","barley","wheat"];
+ const proteinPriority=["beef","lamb","pork","chicken","turkey","duck","lentil","tofu","egg","salmon","cod","pollock","mackerel","chickpea","bean"];
+ const vegPriority=["broccoli","pumpkin","zucchini","bokchoy","vitamin","cauliflower","carrot","spinach","cabbage","greenpea","greenbean","kale","asparagus","tomato","mushroom","shiitake","eggplant","redpepper","onion","beet","lotusroot","cucumber","leek"];
+ const add=(id)=>{if(id&&!chosen.includes(id))chosen.push(id)};
+ add(pick(grainPriority));
+ add(pick(proteinPriority));
+ // 철분이 중요한 영아기에는 우선 철분 공급원을 고르되, 후보에 없다면 가능한 단백질원을 고른다.
+ for(const id of vegPriority){if(unique.includes(id)&&chosen.length<4)add(id)}
+ // 채소가 충분하지 않으면 선택한 다른 식품군에서 한 가지를 보충한다.
+ const extras=unique.filter(id=>!chosen.includes(id) && !["peanut","almond","sesame","milk","cheese","yogurt","oliveoil","canolaoil","chia","flax"].includes(id));
+ for(const id of extras){if(chosen.length>=4)break;add(id)}
+ // 선택 재료가 충분하고 한 가지 식품군에 치우치지 않으면 다섯 번째 재료를 추가한다.
+ if(chosen.length>=4 && chosen.length<5){
+   const extraVeg=vegPriority.find(id=>unique.includes(id)&&!chosen.includes(id));
+   if(extraVeg)add(extraVeg);
+   else {const extra=extras.find(id=>!chosen.includes(id));if(extra)add(extra)}
+ }
+ // 선택 후보가 적으면 억지로 채우지 않는다.
+ return chosen.slice(0,5);
+}
+function amountFor(ids,target){
+ const weights={곡류:0.40,채소:0.30,"육류·단백질":0.20,"생선·달걀·콩":0.20,유제품:0.10,과일:0.10,"유지·씨앗":0.03};
+ const cats={};ids.forEach(id=>{const c=food(id).cat;(cats[c]??=[]).push(id)});
+ const active=Object.keys(cats), base={};
+ active.forEach(c=>base[c]=weights[c]||0.2);
+ const sum=Object.values(base).reduce((a,b)=>a+b,0);Object.keys(base).forEach(c=>base[c]/=sum);
+ const result={};
+ active.forEach(c=>{const each=target*base[c]/cats[c].length;cats[c].forEach(id=>result[id]=Math.max(5,Math.round(each/5)*5))});
+ const total=Object.values(result).reduce((a,b)=>a+b,0);
+ if(ids.length){const first=ids[0];result[first]+=target-total}
+ return result;
+}
+function nutrients(amounts){
+ let n={kcal:0,protein:0,iron:0,carb:0};Object.entries(amounts).forEach(([id,g])=>{let f=food(id),ratio=g/100;n.kcal+=f.kcal*ratio;n.protein+=f.protein*ratio;n.iron+=f.iron*ratio;n.carb+=f.carb*ratio});return n;
+}
+function render(){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===currentTab));let v=$("#view");v.innerHTML="";({mix:renderMix,recipes:renderRecipes,stock:renderStock,allergy:renderAllergy,shopping:renderShopping}[currentTab]||renderMix)(v)}
+function renderMix(v){
+ v.innerHTML=`<section class="panel"><h2>🌼 우리 아기 설정</h2><div class="grid2"><div class="field"><label>월령(개월)</label><select id="age">${[6,7,8,9,10,11,12,13,14,15,16,17,18,24,30,36].map(a=>`<option ${+state.age===a?"selected":""}>${a}</option>`).join("")}</select></div><div class="field"><label>한 끼 목표량(g)</label><input id="target" type="number" min="20" max="500" step="5" value="${state.target}"></div></div><div class="muted">${AGE_NOTES[state.age]||"월령만으로 정확한 배합량을 확정할 수 없습니다. 성장·수유량·전체 식단을 함께 고려하세요."}</div></section>
+ <section class="panel"><h2>🧺 집에 있는 재료를 골라요</h2><p class="muted">체크한 재료는 보유 후보예요. 선택한 재료를 전부 한 끼에 넣지 않고, 곡류 1 + 철분·단백질 공급원 1 + 채소 2~3가지 중심으로 4~5가지만 추천해요. 아기가 이미 먹어 본 재료를 우선 선택하세요.</p>${GROUPS.map(cat=>`<h3>${cat}</h3><div class="ingredient-list">${DB.filter(f=>f.cat===cat).map(f=>`<label class="ingredient"><input type="checkbox" data-food="${f.id}" ${selected.has(f.id)?"checked":""}><span>${f.name}<small>${f.allergen?"알레르기 확인: "+f.allergen:"영양값은 참고 추정치"}</small></span></label>`).join("")}</div>`).join("")}<div class="row" style="margin-top:14px"><button id="recommend">배합 계산하기</button><button class="secondary" id="clear">선택 초기화</button></div></section>
+ <section class="panel wide" id="mixresult"><h2>🥣 배합 결과</h2><div class="empty">재료를 선택하고 ‘배합 계산하기’를 눌러주세요.</div></section>`;
+ $("#age").onchange=e=>{state.age=e.target.value;render()};$("#target").onchange=e=>{state.target=Math.max(20,Math.min(500,Number(e.target.value)||120))};
+ v.querySelectorAll("[data-food]").forEach(c=>c.onchange=()=>c.checked?selected.add(c.dataset.food):selected.delete(c.dataset.food));
+ $("#clear").onclick=()=>{selected.clear();render()};
+ $("#recommend").onclick=()=>{
+  if(!selected.size){alert("재료를 한 가지 이상 선택해 주세요.");return}
+  const candidates=[...selected],ids=chooseRecommended(candidates,state.age),target=state.target,amounts=amountFor(ids,target),n=nutrients(amounts);
+  const rows=Object.entries(amounts).map(([id,g])=>`<div class="result-line"><span>${food(id).name}</span><b>${g}g</b></div>`).join("");
+  const warnings=[];
+  if(ids.length<4)warnings.push("선택한 후보 중 적절한 조합으로 고를 수 있는 재료가 4가지 미만이에요. 재료를 더 체크하거나, 억지로 늘리지 않고 현재 조합을 참고용으로 사용하세요.");
+  if(candidates.length>5)warnings.push(`체크한 ${candidates.length}가지 중 추천 조합에 적합한 ${ids.length}가지만 골랐어요. 나머지 재료는 다른 끼니에 활용할 수 있어요.`);
+  if(!ids.some(id=>["beef","lamb","pork","chicken","turkey","duck","salmon","cod","pollock","mackerel","egg","tofu","lentil","chickpea","bean"].includes(id)))warnings.push("선택한 재료에 육류·생선·달걀·콩 등 주요 단백질/철분 공급원이 포함되지 않았습니다. 다른 식사까지 포함해 검토하세요.");
+  if(ids.some(id=>food(id).allergen))warnings.push("선택 재료에 알레르기 유발 식품이 있습니다. 이미 도입했는지, 과거 반응이 있었는지 확인하세요.");
+  $("#mixresult").innerHTML=`<h2>🥣 추천 배합 <span class="pill">선택 재료 중 ${ids.length}가지</span></h2><div class="result">${rows}<div class="result-line total"><span>총량</span><span>${Object.values(amounts).reduce((a,b)=>a+b,0)}g</span></div></div><h3>영양소 추정치</h3><div class="nutrients"><div class="nutrient"><b>${Math.round(n.kcal)}</b><span>열량(kcal)</span></div><div class="nutrient"><b>${n.protein.toFixed(1)}g</b><span>단백질</span></div><div class="nutrient"><b>${n.iron.toFixed(2)}mg</b><span>철분</span></div></div><p class="muted">추천 로직은 곡류·철분/단백질 공급원·채소를 우선하는 초기 규칙 기반입니다. 임상적으로 검증된 최적 배합은 아니며 영양값은 참고 추정치예요. 조리·수분·부위에 따라 달라지고, 한 끼 수치만으로 하루 필요량 충족 여부를 판단하지 마세요.</p>${warnings.map(w=>`<div class="warn" style="margin-top:7px">⚠️ ${w}</div>`).join("")}<div class="field" style="margin-top:12px"><label>레시피 이름</label><input id="recipeName" placeholder="예: 소고기 단호박 이유식"></div><button id="saveRecipe">이 레시피 저장</button>`;
+  $("#saveRecipe").onclick=()=>{const name=$("#recipeName").value.trim()||"이유식 "+new Date().toLocaleDateString("ko-KR");state.recipes.unshift({id:Date.now(),name,age:state.age,target,amounts,n,created:new Date().toISOString()});put("recipes",state.recipes);alert("레시피를 저장했어요.");};
+ };
+}
+function renderRecipes(v){v.innerHTML=`<section class="panel wide"><h2>📒 저장한 레시피</h2><p class="muted">레시피는 이 기기의 브라우저에 저장됩니다.</p>${state.recipes.length?state.recipes.map(r=>`<div class="item"><div class="item-head"><span class="item-title">${esc(r.name)}</span><button class="secondary small" data-del="${r.id}">삭제</button></div><p>${r.age}개월 기준 · 목표 ${r.target}g · ${new Date(r.created).toLocaleDateString("ko-KR")}</p><p>${Object.entries(r.amounts).map(([id,g])=>`${food(id)?.name||id} ${g}g`).join(" · ")}</p><button class="small" data-shop="${r.id}">재료 장보기 추가</button></div>`).join(""):'<div class="empty">아직 저장한 레시피가 없어요. 배합 결과에서 저장해 주세요.</div>'}</section>`;v.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{state.recipes=state.recipes.filter(r=>r.id!=b.dataset.del);put("recipes",state.recipes);render()});v.querySelectorAll("[data-shop]").forEach(b=>b.onclick=()=>{let r=state.recipes.find(x=>x.id==b.dataset.shop);Object.keys(r.amounts).forEach(id=>{if(!state.stock[id]||state.stock[id].grams<r.amounts[id]){if(!state.shopping.some(s=>s.id===id))state.shopping.push({id,qty:r.amounts[id]})}});put("shopping",state.shopping);alert("재고가 부족한 재료를 장보기 목록에 추가했어요.");});}
+function renderStock(v){v.innerHTML=`<section class="panel wide"><h2>🧊 냉동 큐브 재고</h2><p class="muted">재료별 보유 중량(g)을 기록하세요. 큐브 크기가 다르면 총중량으로 입력하면 됩니다.</p><div class="grid2"><div><label>재료</label><select id="stockFood">${DB.map(f=>`<option value="${f.id}">${f.name}</option>`).join("")}</select></div><div><label>추가 중량(g)</label><input id="stockGrams" type="number" min="1" value="20"></div></div><button id="addStock" style="margin-top:10px">재고 추가</button><h3>현재 재고</h3>${Object.keys(state.stock).filter(id=>state.stock[id].grams>0).length?Object.entries(state.stock).filter(([id,x])=>x.grams>0).map(([id,x])=>`<div class="item"><div class="item-head"><span>${food(id)?.name||id}</span><b>${x.grams}g</b></div><div class="row" style="margin-top:8px"><button class="secondary small" data-use="${id}">20g 사용</button><button class="secondary small" data-remove="${id}">재고 삭제</button></div></div>`).join(""):'<div class="empty">등록된 재고가 없어요.</div>'}</section>`;$("#addStock").onclick=()=>{let id=$("#stockFood").value,g=Number($("#stockGrams").value);if(g>0){state.stock[id]??={grams:0};state.stock[id].grams+=g;put("stock",state.stock);render()}};v.querySelectorAll("[data-use]").forEach(b=>b.onclick=()=>{let x=state.stock[b.dataset.use];x.grams=Math.max(0,x.grams-20);put("stock",state.stock);render()});v.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{delete state.stock[b.dataset.remove];put("stock",state.stock);render()});}
+function renderAllergy(v){v.innerHTML=`<section class="panel wide"><h2>🩷 알레르기·도입 기록</h2><p class="muted">의료 진단을 대신하지 않습니다. 심한 반응이 있었다면 재도입하지 말고 의료진에게 상담하세요.</p><div class="field"><label>식품</label><select id="allFood">${DB.map(f=>`<option value="${f.id}">${f.name}${f.allergen?" · "+f.allergen:""}</option>`).join("")}<option value="other">기타 식품</option></select></div><div class="field"><label>도입 상태</label><select id="allStatus"><option>먹어 봄 · 반응 없음</option><option>처음 도입 예정</option><option>반응 의심</option><option>의료진 진단 알레르기</option></select></div><div class="field"><label>날짜</label><input id="allDate" type="date" value="${new Date().toISOString().slice(0,10)}"></div><div class="field"><label>메모(먹은 양, 증상, 대처 등)</label><textarea id="allNote" rows="2" placeholder="예: 입 주변 발진이 10분 뒤 나타남"></textarea></div><button id="addAll">기록 저장</button><h3>기록 목록</h3>${state.allergies.length?state.allergies.map(a=>`<div class="item"><div class="item-head"><b>${esc(food(a.food)?.name||a.foodName||"기타 식품")}</b><span class="pill">${esc(a.status)}</span></div><p>${esc(a.date)} · ${esc(a.note||"메모 없음")}</p><button class="ghost small" data-delall="${a.id}">삭제</button></div>`).join(""):'<div class="empty">아직 기록이 없어요.</div>'}</section>`;$("#addAll").onclick=()=>{let f=$("#allFood").value;state.allergies.unshift({id:Date.now(),food:f,foodName:f==="other"?"기타 식품":"",status:$("#allStatus").value,date:$("#allDate").value,note:$("#allNote").value.trim()});put("allergies",state.allergies);render()};v.querySelectorAll("[data-delall]").forEach(b=>b.onclick=()=>{state.allergies=state.allergies.filter(a=>a.id!=b.dataset.delall);put("allergies",state.allergies);render()});}
+function renderShopping(v){v.innerHTML=`<section class="panel wide"><h2>🛒 장보기 목록</h2><div class="row"><div><label>재료</label><select id="shopFood">${DB.map(f=>`<option value="${f.id}">${f.name}</option>`).join("")}</select></div><div><label>필요 중량(g)</label><input id="shopQty" type="number" min="1" value="100"></div></div><button id="addShop" style="margin-top:10px">목록에 추가</button><h3>살 재료</h3>${state.shopping.length?state.shopping.map((s,i)=>`<div class="item"><div class="item-head"><label style="margin:0;display:flex;align-items:center;gap:8px;color:var(--ink)"><input type="checkbox" data-bought="${i}" ${s.bought?"checked":""}>${esc(food(s.id)?.name||s.id)}</label><b>${s.qty}g</b></div><button class="ghost small" data-delshop="${i}">삭제</button></div>`).join(""):'<div class="empty">장보기 목록이 비어 있어요.</div>'}<button class="secondary" id="clearBought" style="margin-top:10px">구매 완료 항목 정리</button></section>`;$("#addShop").onclick=()=>{let id=$("#shopFood").value,qty=Number($("#shopQty").value);if(qty>0){let old=state.shopping.find(s=>s.id===id&&!s.bought);if(old)old.qty+=qty;else state.shopping.push({id,qty,bought:false});put("shopping",state.shopping);render()}};v.querySelectorAll("[data-bought]").forEach(c=>c.onchange=()=>{state.shopping[+c.dataset.bought].bought=c.checked;put("shopping",state.shopping)});v.querySelectorAll("[data-delshop]").forEach(b=>b.onclick=()=>{state.shopping.splice(+b.dataset.delshop,1);put("shopping",state.shopping);render()});$("#clearBought").onclick=()=>{state.shopping=state.shopping.filter(s=>!s.bought);put("shopping",state.shopping);render()}}
+$("#tabs").addEventListener("click",e=>{let b=e.target.closest("[data-tab]");if(b){currentTab=b.dataset.tab;render()}});
+render();
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+</script>
+</body>
+</html>
